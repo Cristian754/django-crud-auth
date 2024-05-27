@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+<main class="container">
+  <div class="row">
+    <div class="col-md-4 offset-md-4 mt-5">
+      {% if error %}
+        {{ error }}
+      {% else %}
+      <h1>{{ task.title }}</h1>
+      <form method='POST' class='card card-body'>  
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class='btn btn-primary'>Update</button>
+      </form>
+      <form method='POST' action='{% url "task_complete" task.id %}' class='card card-body'>
+        {% csrf_token %}
+        <button class='btn btn-success'>Complete</button>
+      </form>
+      <form method='POST' action='{% url "task_delete" task.id %}' class='card card-body'>
+        {% csrf_token %}
+        <button class='btn btn-danger'>Delete</button>
+      </form>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</main>
+{% endblock  %}
